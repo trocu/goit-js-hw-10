@@ -1,0 +1,2 @@
+const e=e=>{const o=`https://restcountries.com/v3.1/name/${e}?${new URLSearchParams("fields=name&fields=capital&fields=population&fields=flags&fields=languages")}`;return console.log(o),fetch(o).then((e=>{if(!e.ok)throw new Error(e.status);return e.json()}))};document.querySelector(".country-list"),document.querySelector(".country-info");document.querySelector("#search-box").addEventListener("input",(()=>{e("poland").then((e=>console.log(e))).catch((e=>console.log(e)))}));
+//# sourceMappingURL=index.0e31605b.js.map
