@@ -18,3 +18,35 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+.country-list {
+  margin: 0;
+  padding: 0;
+}
+.country-item {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  align-items: center;
+  gap: 10px;
+  padding-block: 5;
+}
+.country-text {
+  font-size: 20px;
+  margin: 0;
+}
+.country-img {
+  display: block;
+  /* height: 30px; */
+  width: 30px;
+}
+.country-title {
+  display: inline-block;
+  margin-block: 0;
+}
+/* .country-title::before {
+  content: '';
+  position: relative;
+  top: 0;
+  left: 0;
+  background: url(https://flagcdn.com/pl.svg) no-repeat center center/cover;
+} */
