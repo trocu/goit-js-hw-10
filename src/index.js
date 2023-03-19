@@ -7,36 +7,47 @@ const DEBOUNCE_DELAY = 300;
 
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
-export const searchBox = document.querySelector('#search-box');
+const searchBox = document.querySelector('#search-box');
 
-const searchInput = e => {
-  console.log(typeof e.target.value);
-  if (!e.target.value) {
-    console.log('brak tekstu');
+//Body of the application, listens to the input field and looks for matches in the database
+const searchBoxInput = e => {
+  const searchParam = e.target.value.trim();
+  if (!searchParam) {
+    //If user has cleared the input field, we clear the innerHTML properties and abort the query to the database
+    countryList.innerHTML = '';
+    countryInfo.innerHTML = '';
+    return;
   }
-
-  fetchCountries()
+  //We fetch the list of countries, if there are more than 10 records abort fetching
+  fetchCountries(searchParam)
     .then(country => {
       if (country.length > 10) {
+        countryList.innerHTML = '';
+        countryInfo.innerHTML = '';
         Notiflix.Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
         return;
       }
-      return country;
-    })
-    .then(country => {
-      if (country.length === 1) {
-        return renderCountryInfo(country);
-      }
-      return renderCountryList(country);
+      return printCountries(country);
     })
     .catch(error =>
       Notiflix.Notify.failure('Oops, there is no country with that name')
     );
 };
 
-function renderCountryList(country) {
+searchBox.addEventListener('input', debounce(searchBoxInput, DEBOUNCE_DELAY));
+
+//If there is one match we display as a full description, otherwise as a list of countries
+const printCountries = country => {
+  if (country.length === 1) {
+    return renderCountryInfo(country);
+  }
+  renderCountryList(country);
+};
+
+//View list of countries
+const renderCountryList = country => {
   const markup = country
     .map(country => {
       return `
@@ -46,11 +57,12 @@ function renderCountryList(country) {
       </li>`;
     })
     .join('');
-
+  countryInfo.innerHTML = ''; //Clear full description
   countryList.innerHTML = markup;
-}
+};
 
-function renderCountryInfo(country) {
+//View country with full description
+const renderCountryInfo = country => {
   const markup = country.map(country => {
     return `
     <img class="country-info_img" alt="${country.name.official}" src="${
@@ -63,8 +75,6 @@ function renderCountryInfo(country) {
       country.languages
     )}</p>`;
   });
-
+  countryList.innerHTML = ''; //Clear country list
   countryInfo.innerHTML = markup;
-}
-
-searchBox.addEventListener('input', debounce(searchInput, DEBOUNCE_DELAY));
+};
