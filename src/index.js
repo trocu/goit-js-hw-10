@@ -11,15 +11,15 @@ const searchBox = document.querySelector('#search-box');
 
 //Body of the application, listens to the input field and looks for matches in the database
 const searchBoxInput = e => {
-  const searchParam = e.target.value.trim();
-  if (!searchParam) {
+  const searchValue = e.target.value.trim();
+  if (!searchValue) {
     //If user has cleared the input field, we clear the innerHTML properties and abort the query to the database
     countryList.innerHTML = '';
     countryInfo.innerHTML = '';
     return;
   }
-  //We fetch the list of countries, if there are more than 10 records abort fetching
-  fetchCountries(searchParam)
+  //Fetch the list of countries, if there are more than 10 records abort fetching
+  fetchCountries(searchValue)
     .then(country => {
       if (country.length > 10) {
         countryList.innerHTML = '';
