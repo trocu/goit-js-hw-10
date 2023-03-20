@@ -69,11 +69,17 @@ const renderCountryInfo = country => {
       country.flags.svg
     }" />
     <h1 class="country-info_title">${country.name.official}</h1>
-    <p class="country-info_text"><b>Capital:</b> ${country.capital}</p>
-    <p class="country-info_text"><b>Population:</b> ${country.population}</p>
-    <p class="country-info_text"><b>Languages:</b> ${Object.values(
+    <ul class="country-info_list">
+    <li class="country-info_item"><p class="country-info_text"><b>Capital:</b> ${
+      country.capital
+    }</p></li>
+    <li class="country-info_item"><p class="country-info_text"><b>Population:</b> ${
+      country.population
+    }</p></li>
+    <li class="country-info_item"><p class="country-info_text"><b>Languages:</b> ${Object.values(
       country.languages
-    )}</p>`;
+    )}</p></li>
+    </ul>`;
   });
   countryList.innerHTML = ''; //Clear country list
   countryInfo.innerHTML = markup;

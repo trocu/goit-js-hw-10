@@ -32,6 +32,9 @@ body {
   margin: 0;
   padding: 0;
 }
+.country-info {
+  position: absolute;
+}
 .country-list_item {
   list-style-type: none;
   display: flex;
@@ -56,4 +59,21 @@ body {
   display: inline-block;
   margin-block: 0;
   margin-left: 5px;
+}
+.country-info_list {
+  margin: 0;
+  padding: 0;
+}
+.country-info_item {
+  list-style-type: none;
+  position: relative;
+}
+.country-info_text::after {
+  content: '.............';
+  color: #9197ae;
+  font-size: 15px;
+  letter-spacing: 4px;
+  position: absolute;
+  left: 0;
+  top: -23px;
 }
